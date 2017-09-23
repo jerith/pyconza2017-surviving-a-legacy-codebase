@@ -7,10 +7,12 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+        <link rel="stylesheet" href="css/theme/jerith.css" id="theme">
+		<!-- <link rel="stylesheet" href="css/theme/black.css"> -->
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <link rel="stylesheet" href="css/highlight_tomorrow.css">
+		<!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,8 +26,13 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+              <section data-markdown="index.md"
+                       data-separator="^\n\$\$\$\n\$\$\$\n\n"
+                       data-separator-vertical="^\n\$\$\$\n\n"
+                       data-separator-notes="^\$\$\$NOTES\n"
+                       data-element-attributes="{_\s*?([^}]+?)}"
+                       data-charset="utf-8">
+              </section>
 			</div>
 		</div>
 
@@ -33,10 +40,26 @@
 		<script src="js/reveal.js"></script>
 
 		<script>
+            function pytestresult(hljs) {
+              // This uses the "compiled" names for things.
+              return { c: [
+                { cN: 'pytest-warning',
+                  b: '^(=+ )?\\d+ passed.*pytest-warnings', e: '$' },
+                { cN: 'pytest-passed', b: '^(=+ )?\\d+ passed', e: '$' },
+                { cN: 'pytest-failed', b: '^(=+ )?\\d+ failed', e: '$' },
+                { cN: 'pytest-dim', b: '^(===|---|___).*\\1$' }
+              ]};
+            };
+
 			// More info about config & dependencies:
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+                center: false,
+                transition: 'none', // none/fade/slide/convex/concave/zoom
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
@@ -44,6 +67,12 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
+
+            Reveal.addEventListener('fragmentshown', function(event) {
+              if (event.fragment.classList.contains('frag-instant')) {
+                Reveal.nextFragment();
+              }
+            });
 		</script>
 	</body>
 </html>

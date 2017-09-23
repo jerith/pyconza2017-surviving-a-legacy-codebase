@@ -98,7 +98,7 @@ module.exports = function(grunt) {
 					port: port,
 					base: root,
 					livereload: true,
-					open: true
+					open: false //true
 				}
 			},
 
@@ -142,8 +142,47 @@ module.exports = function(grunt) {
 			},
 			options: {
 				livereload: true
-			}
+			},
+            sources: {
+                options: { livereload: false },
+                files: [ '../*.md', '../code/**/*.{out,txt}' ],
+                tasks: [ 'preprocess' ]
+            },
+            python: {
+                options: { livereload: false },
+                files: [ '../code/**/*.py' ],
+                tasks: [ 'exec:pytest', 'preprocess' ]
+            }
 		},
+
+        preprocess: {
+            options: {
+                context: {
+                    frag: function(classes, index) {
+                        var output = '<!--{_class="fragment';
+                        if (classes) {
+                            output += ' ' + classes;
+                        }
+                        output += '"';
+                        if (index !== undefined) {
+                            output += ' data-fragment-index="' + index + '"';
+                        }
+                        output += '}-->';
+                        return output;
+                    },
+                    DEBUG: true
+                }
+            },
+            markdown: {
+                src: [ '../*.md', '!../*.part.md', '!../README.md' ],
+                flatten: true,
+                expand: true
+            }
+        },
+
+        exec: {
+            pytest: 'py.test --flake8 ../code'
+        },
 
 		retire: {
 			js: ['js/reveal.js', 'lib/js/*.js', 'plugin/**/*.js'],
@@ -164,12 +203,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-autoprefixer' );
 	grunt.loadNpmTasks( 'grunt-zip' );
 	grunt.loadNpmTasks( 'grunt-retire' );
+    grunt.loadNpmTasks('grunt-preprocess');
+    grunt.loadNpmTasks('grunt-exec');
 
 	// Default task
-	grunt.registerTask( 'default', [ 'css', 'js' ] );
+	grunt.registerTask( 'default', [ 'css', 'js', 'exec:pytest', 'preprocess' ] );
+	// grunt.registerTask( 'default', [ 'css', 'js' ] );
 
 	// JS task
-	grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
+	grunt.registerTask( 'js', [ 'jshint', 'uglify' ] );
+	// grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
 
 	// Theme CSS
 	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
@@ -184,7 +227,8 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'package', [ 'default', 'zip' ] );
 
 	// Serve presentation locally
-	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
+	grunt.registerTask( 'serve', [ 'preprocess', 'connect', 'watch' ] );
+	// grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
 
 	// Run tests
 	grunt.registerTask( 'test', [ 'jshint', 'qunit' ] );

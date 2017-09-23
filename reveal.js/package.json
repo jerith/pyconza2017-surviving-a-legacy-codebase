@@ -40,5 +40,9 @@
     "node-sass": "~3.13.0",
     "socket.io": "^1.4.8"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "grunt-exec": "^3.0.0",
+    "grunt-preprocess": "^5.1.0"
+  }
 }

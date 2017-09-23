@@ -1,0 +1,142 @@
+/**
+ * A custom theme for reveal.js, mostly consisting of bits of `moon` and `sky`.
+ * Author: Jeremy Thurgood
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=Quicksand:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
+/**
+ * Solarized colors by Ethan Schoonover
+ */
+html * {
+	color-profile: sRGB;
+	rendering-intent: auto;
+}
+
+// Solarized colors
+$base03:    #002b36;
+$base02:    #073642;
+$base01:    #586e75;
+$base00:    #657b83;
+$base0:     #839496;
+$base1:     #93a1a1;
+$base2:     #eee8d5;
+$base3:     #fdf6e3;
+$yellow:    #b58900;
+$orange:    #cb4b16;
+$red:       #dc322f;
+$magenta:   #d33682;
+$violet:    #6c71c4;
+$blue:      #268bd2;
+$cyan:      #2aa198;
+$green:     #859900;
+
+// Override theme settings (see ../template/settings.scss)
+$mainFont: 'Open Sans', sans-serif;
+$mainFontSize: 36px;
+$mainColor: $base1;
+$headingFont: 'Quicksand', sans-serif;
+$headingColor: $base2;
+// $headingLetterSpacing: -0.08em;
+$headingTextShadow: none;
+$backgroundColor: $base03;
+$linkColor: $blue;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: $magenta;
+$headingMargin: -$blockMargin 0 $blockMargin*2 0;
+
+
+.hljs-pytest-passed {
+  // $green is too yellow.
+  color: #659900;
+}
+
+.hljs-pytest-warning {
+  color: $yellow;
+}
+
+.hljs-pytest-failed {
+  color: $red;
+}
+
+.hljs-pytest-dim {
+  opacity: 0.5;
+}
+
+
+.reveal sup {
+  font-size: 60%;
+}
+
+.reveal .slides section .fragment.hc {
+  opacity: 1;
+  visibility: visible;
+}
+
+.reveal .slides section .fragment.hc.current-fragment,
+.reveal .slides section .fragment.vhc.current-fragment {
+  color: #1b91ff;
+}
+
+.reveal span.hblock {
+  display: inline-block;
+  width: 49%;
+}
+
+.sb li p {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.sb li p > span {
+  padding-right: 1em;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+// Override some things after the theme has been applied.
+
+.reveal pre {
+  display: flex;
+  font-size: 0.60em;
+  box-shadow: unset;
+  width: 110%;
+  margin: $blockMargin -5%;
+}
+
+.reveal ul {
+  line-height: 2em;
+}
+
+.reveal code {
+  color: #c5c8c6;
+}
+
+.reveal pre code {
+  overflow-x: hidden;
+  color: #c5c8c6;
+  background: #1d1f21;
+  border-radius: 7px;
+  padding: 10px 25px 10px 15px;
+  max-height: 600px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 6px rgba(255,255,255,0.2);
+}
+
+// To fix fullscreen background on Chrome.
+html {
+  background-color: inherit;
+}

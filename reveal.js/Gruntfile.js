@@ -5,6 +5,9 @@ module.exports = function(grunt) {
 
 	if (!Array.isArray(root)) root = [root];
 
+    // var frag = ;
+
+
 	// Project configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -158,17 +161,26 @@ module.exports = function(grunt) {
         preprocess: {
             options: {
                 context: {
-                    frag: function(classes, index) {
-                        var output = '<!--{_class="fragment';
-                        if (classes) {
-                            output += ' ' + classes;
-                        }
-                        output += '"';
-                        if (index !== undefined) {
-                            output += ' data-fragment-index="' + index + '"';
-                        }
-                        output += '}-->';
-                        return output;
+                    sectitle: function(sec, name) {
+                        return [
+                            '<!-- .slide: class="center" -->',
+                            '#### ' + sec + ' <!--{_style="opacity: 0.3"}-->',
+                            '## ' + name,
+                            '<br/>',
+                        ].join('\n\n');
+                    },
+                    attrs: function(attrs) {
+                        var ma = ([k, v]) => { return k + '="' + v + '"'; };
+                        return '<!--{_' + attrs.map(ma).join(' ') + '}-->';
+                    },
+                    frag: function(classes = '', index = undefined) {
+                        var attrs = [['class', ('fragment ' + classes).trim()]];
+                        if (index !== undefined)
+                            attrs.push(['data-fragment-index', index]);
+                        return this.attrs(attrs);
+                    },
+                    ifrag: function(classes = '', index = undefined) {
+                        return this.frag('frag-instant ' + classes, index);
                     },
                     DEBUG: true
                 }
@@ -181,7 +193,8 @@ module.exports = function(grunt) {
         },
 
         exec: {
-            pytest: 'py.test --flake8 ../code'
+            // pytest: 'py.test --flake8 ../code'
+            pytest: 'true'
         },
 
 		retire: {

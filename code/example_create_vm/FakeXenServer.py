@@ -1,0 +1,3 @@
+class FakeXenServer(object):
+    """Fake XenServer to use in tests."""
+    # ... 300+ lines of implementation ...

@@ -1,12 +1,11 @@
-<!-- .slide: class="center" -->
-
-## What is legacy code?
+<!--@exec sectitle("Prelude", "What is legacy code?")-->
 
 $$$
 
-<!-- .slide: class="center" -->
+<br/>
+<br/>
 
-#### The very old definition <!--@exec frag("semi-fade-out frag-instant")-->
+#### The very old definition <!--@exec ifrag("semi-fade-out")-->
 
 <br/>
 
@@ -14,9 +13,10 @@ $$$
 
 $$$
 
-<!-- .slide: class="center" -->
+<br/>
+<br/>
 
-#### The most common current definition <!--@exec frag("semi-fade-out frag-instant")-->
+#### The most common current definition <!--@exec ifrag("semi-fade-out")-->
 
 <br/>
 
@@ -24,9 +24,10 @@ $$$
 
 $$$
 
-<!-- .slide: class="center" -->
+<br/>
+<br/>
 
-#### A more visceral definition <!--@exec frag("semi-fade-out frag-instant")-->
+#### A more visceral definition <!--@exec ifrag("semi-fade-out")-->
 
 <br/>
 
@@ -34,13 +35,14 @@ $$$
 
 $$$
 
-<!-- .slide: class="center" -->
+<br/>
+<br/>
 
-#### A more practical definition <!--@exec frag("semi-fade-out frag-instant")-->
+#### A practical definition that points to a solution <!--@exec ifrag("semi-fade-out")-->
 
 <br/>
 
 <div>
 ### "Code without tests"
-#### _--Michael Feathers_
+#### _---Michael Feathers_
 </div><!--@exec frag()-->

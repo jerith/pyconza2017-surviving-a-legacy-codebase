@@ -56,24 +56,6 @@ $selectionBackgroundColor: $magenta;
 $headingMargin: -$blockMargin 0 $blockMargin*2 0;
 
 
-.hljs-pytest-passed {
-  // $green is too yellow.
-  color: #659900;
-}
-
-.hljs-pytest-warning {
-  color: $yellow;
-}
-
-.hljs-pytest-failed {
-  color: $red;
-}
-
-.hljs-pytest-dim {
-  opacity: 0.5;
-}
-
-
 .reveal sup {
   font-size: 60%;
 }
@@ -86,6 +68,16 @@ $headingMargin: -$blockMargin 0 $blockMargin*2 0;
 .reveal .slides section .fragment.hc.current-fragment,
 .reveal .slides section .fragment.vhc.current-fragment {
   color: #1b91ff;
+}
+
+.reveal .slides section .fragment.semi-fade-out {
+  &.visible {
+    opacity: 0.3;
+  }
+}
+
+.reveal .slides section .fragment.strike.visible img {
+  display: none;
 }
 
 .reveal span.hblock {
@@ -103,11 +95,43 @@ $headingMargin: -$blockMargin 0 $blockMargin*2 0;
   padding-right: 1em;
 }
 
+.reveal .imgcreds {
+  font-size: 0.6em;
+  line-height: 0.6em;
+}
+
+.reveal .morespaced {
+  li, p {
+    line-height: 2.5;
+  }
+}
+
+.reveal .lessspaced {
+  li, p {
+    line-height: 1.25;
+  }
+}
+
+.hljs-pythonhl-hl {
+  background-color: #114411;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-pythonhl-dt {
+  display: none;
+}
+
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
 
 // Override some things after the theme has been applied.
+
+.reveal h5,
+.reveal h6 {
+  margin: $blockMargin*3 0 -$blockMargin 0;
+}
 
 .reveal pre {
   display: flex;
@@ -134,6 +158,12 @@ $headingMargin: -$blockMargin 0 $blockMargin*2 0;
   max-height: 600px;
   margin: 0 auto;
   box-shadow: 0px 0px 6px rgba(255,255,255,0.2);
+}
+
+.reveal section img {
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 // To fix fullscreen background on Chrome.

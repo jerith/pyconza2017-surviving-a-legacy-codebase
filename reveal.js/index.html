@@ -26,13 +26,13 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-              <section data-markdown="index.md"
-                       data-separator="^\n\$\$\$\n\$\$\$\n\n"
-                       data-separator-vertical="^\n\$\$\$\n\n"
-                       data-separator-notes="^\$\$\$NOTES\n"
-                       data-element-attributes="{_\s*?([^}]+?)}"
-                       data-charset="utf-8">
-              </section>
+                <section data-markdown="index.md"
+                         data-separator="^\n\$\$\$\n\$\$\$\n\n"
+                         data-separator-vertical="^\n\$\$\$\n\n"
+                         data-separator-notes="^\$\$\$NOTES\n"
+                         data-element-attributes="{_\s*?([^}]+?)}"
+                         data-charset="utf-8">
+                </section>
 			</div>
 		</div>
 
@@ -40,15 +40,19 @@
 		<script src="js/reveal.js"></script>
 
 		<script>
-            function pytestresult(hljs) {
-              // This uses the "compiled" names for things.
-              return { c: [
-                { cN: 'pytest-warning',
-                  b: '^(=+ )?\\d+ passed.*pytest-warnings', e: '$' },
-                { cN: 'pytest-passed', b: '^(=+ )?\\d+ passed', e: '$' },
-                { cN: 'pytest-failed', b: '^(=+ )?\\d+ failed', e: '$' },
-                { cN: 'pytest-dim', b: '^(===|---|___).*\\1$' }
-              ]};
+            // Some hacky stuff to handle highlighting blocks of Python code.
+            var hltok = /^\s*#\s*\$HL\s*$/;
+
+            function pythondt(hljs) {
+                // This uses the "compiled" names for things.
+                return { c: [{ cN: 'pythonhl-dt', b: hltok, e: '^' },
+                             { b: /^[^$]/, e: /$/, sL: 'python' }] };
+            };
+
+            function pythonhl(hljs) {
+                // This uses the "compiled" names for things.
+                return { c: [{ cN: 'pythonhl-hl', b: hltok, e: hltok, sL: 'pythondt' },
+                             { b: '^\\s*[^$]', e: '$', sL: 'python' }] };
             };
 
 			// More info about config & dependencies:
@@ -60,19 +64,27 @@
                 history: true,
                 center: false,
                 transition: 'none', // none/fade/slide/convex/concave/zoom
+                markdown: {
+                    smartypants: true
+                },
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'plugin/highlight/highlight.js', async: true,
+                      callback: function() {
+                          hljs.registerLanguage("pythondt", pythondt);
+                          hljs.registerLanguage("pythonhl", pythonhl);
+                          hljs.initHighlightingOnLoad();
+                      } }
 				]
 			});
 
-            Reveal.addEventListener('fragmentshown', function(event) {
+          Reveal.addEventListener('fragmentshown', function(event) {
               if (event.fragment.classList.contains('frag-instant')) {
-                Reveal.nextFragment();
+                  Reveal.nextFragment();
               }
-            });
+          });
 		</script>
 	</body>
 </html>

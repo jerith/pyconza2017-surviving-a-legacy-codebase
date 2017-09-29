@@ -11,18 +11,6 @@ html * {
   color-profile: sRGB;
   rendering-intent: auto; }
 
-.hljs-pytest-passed {
-  color: #659900; }
-
-.hljs-pytest-warning {
-  color: #b58900; }
-
-.hljs-pytest-failed {
-  color: #dc322f; }
-
-.hljs-pytest-dim {
-  opacity: 0.5; }
-
 .reveal sup {
   font-size: 60%; }
 
@@ -33,6 +21,12 @@ html * {
 .reveal .slides section .fragment.hc.current-fragment,
 .reveal .slides section .fragment.vhc.current-fragment {
   color: #1b91ff; }
+
+.reveal .slides section .fragment.semi-fade-out.visible {
+  opacity: 0.3; }
+
+.reveal .slides section .fragment.strike.visible img {
+  display: none; }
 
 .reveal span.hblock {
   display: inline-block;
@@ -45,6 +39,24 @@ html * {
 
 .sb li p > span {
   padding-right: 1em; }
+
+.reveal .imgcreds {
+  font-size: 0.6em;
+  line-height: 0.6em; }
+
+.reveal .morespaced li, .reveal .morespaced p {
+  line-height: 2.5; }
+
+.reveal .lessspaced li, .reveal .lessspaced p {
+  line-height: 1.25; }
+
+.hljs-pythonhl-hl {
+  background-color: #114411;
+  display: inline-block;
+  width: 100%; }
+
+.hljs-pythonhl-dt {
+  display: none; }
 
 /*********************************************
  * GLOBAL STYLES
@@ -330,6 +342,10 @@ body {
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
 
+.reveal h5,
+.reveal h6 {
+  margin: 60px -20px 0; }
+
 .reveal pre {
   display: flex;
   font-size: 0.60em;
@@ -352,6 +368,11 @@ body {
   max-height: 600px;
   margin: 0 auto;
   box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2); }
+
+.reveal section img {
+  background: none;
+  border: none;
+  box-shadow: none; }
 
 html {
   background-color: inherit; }

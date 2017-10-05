@@ -22,18 +22,55 @@ $$$
 
 $$$
 
+### Breaking dependencies
+
+Test doubles! <!--@exec frag()-->
+
+...but how do we get them in there? <!--@exec frag()-->
+
+<br/>
+
+* Break up long functions <!--@exec frag()-->
+* Add parameters <!--@exec frag()-->
+* Encapsulate global references <!--@exec frag()-->
+* Use seams <!--@exec frag()-->
+
+
+$$$NOTES
+
+Usually have to do this without tests.
+
+$$$
+
+#### Encapsulating a global dependency
+
+Instead of using `reactor` directly, put it in an attribute...
+
+```pythonhl
+<!-- @include code/breaking_dependencies/encapsulation.py -->
+```
+
+...then override that attribute in the test.
+
+```pythonhl
+<!-- @include code/breaking_dependencies/encapsulation_test.py -->
+```
+
+$$$
+
 ### Seams
 
 <br/>
 
-"A seam is a place where you can alter behavior in your program without editing in that place." <!--@exec frag()-->
+"A seam is a place where you can alter behavior in your program without editing in that place." <br/>
+_---Michael Feathers_
 
 <br/>
 
 <div>
-* imported modules
-* function calls
-* method calls
+* module imports
+* function/method calls
+* attribute lookups
 </div> <!--@exec frag()-->
 
 $$$
@@ -55,26 +92,6 @@ Subclass and override <!--@exec frag()-->
 $$$NOTES
 
 fake-plastic-pycrypto
-
-$$$
-
-### Breaking dependencies
-
-Test doubles! <!--@exec frag()-->
-
-...but how do we get them in there? <!--@exec frag()-->
-
-<br/>
-
-* Use seams <!--@exec frag()-->
-* Encapsulate global references <!--@exec frag()-->
-* Break up long functions <!--@exec frag()-->
-* Add parameters <!--@exec frag()-->
-
-
-$$$NOTES
-
-Usually have to do this without tests.
 
 $$$
 
@@ -105,22 +122,6 @@ Instead, we monkey-patch in our own `getSession()`.
 <br/>
 
 It's ugly, but we know we didn't break anything. :-) <!--@exec frag()-->
-
-$$$
-
-#### Encapsulating a global dependency
-
-Instead of using `reactor` directly, put it in an attribute...
-
-```pythonhl
-<!-- @include code/breaking_dependencies/encapsulation.py -->
-```
-
-...then override that attribute in the test.
-
-```pythonhl
-<!-- @include code/breaking_dependencies/encapsulation_test.py -->
-```
 
 $$$
 

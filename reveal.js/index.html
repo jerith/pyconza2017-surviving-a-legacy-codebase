@@ -67,6 +67,7 @@
                 markdown: {
                     smartypants: true
                 },
+                pebble: { url: "localhost:1980" },
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
@@ -76,7 +77,9 @@
                           hljs.registerLanguage("pythondt", pythondt);
                           hljs.registerLanguage("pythonhl", pythonhl);
                           hljs.initHighlightingOnLoad();
-                      } }
+                      } },
+                    { src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
+                    { src: 'plugin/pebble/client.js', async: true }
 				]
 			});
 

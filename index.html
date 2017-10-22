@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/jerith.css" id="theme">
+		<!-- <link rel="stylesheet" href="css/theme/black.css"> -->
+
+		<!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="css/highlight_tomorrow.css">
+		<!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown="index.md"
+                         data-separator="^\n\$\$\$\n\$\$\$\n\n"
+                         data-separator-vertical="^\n\$\$\$\n\n"
+                         data-separator-notes="^\$\$\$NOTES\n"
+                         data-element-attributes="{_\s*?([^}]+?)}"
+                         data-charset="utf-8">
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+            // Some hacky stuff to handle highlighting blocks of Python code.
+            var hltok = /^\s*#\s*\$HL\s*$/;
+
+            function pythondt(hljs) {
+                // This uses the "compiled" names for things.
+                return { c: [{ cN: 'pythonhl-dt', b: hltok, e: '^' },
+                             { b: /^[^$]/, e: /$/, sL: 'python' }] };
+            };
+
+            function pythonhl(hljs) {
+                // This uses the "compiled" names for things.
+                return { c: [{ cN: 'pythonhl-hl', b: hltok, e: hltok, sL: 'pythondt' },
+                             { b: '^\\s*[^$]', e: '$', sL: 'python' }] };
+            };
+
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+                controls: false,
+                progress: true,
+                history: true,
+                center: false,
+                transition: 'none', // none/fade/slide/convex/concave/zoom
+                markdown: {
+                    smartypants: true
+                },
+                pebble: { url: "localhost:1980" },
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true,
+                      callback: function() {
+                          hljs.registerLanguage("pythondt", pythondt);
+                          hljs.registerLanguage("pythonhl", pythonhl);
+                          hljs.initHighlightingOnLoad();
+                      } },
+                    { src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
+                    { src: 'plugin/pebble/client.js', async: true }
+				]
+			});
+
+          Reveal.addEventListener('fragmentshown', function(event) {
+              if (event.fragment.classList.contains('frag-instant')) {
+                  Reveal.nextFragment();
+              }
+          });
+		</script>
+	</body>
+</html>
